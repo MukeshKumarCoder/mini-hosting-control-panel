@@ -3,8 +3,9 @@ require("dotenv").config();
 const DB = require("./Config/DB");
 const cors = require("cors");
 
-const app = express();
+const deployRoutes = require("./routes/deployRoutes");
 
+const app = express();
 const PORT = process.env.PORT || 4000;
 
 // DB Connection
@@ -17,6 +18,8 @@ app.use(
     credential: true,
   }),
 );
+
+app.use("/api", deployRoutes);
 
 app.get("/", (req, res) => {
   res.send("App is running");
