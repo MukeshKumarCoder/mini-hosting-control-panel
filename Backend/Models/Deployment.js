@@ -21,10 +21,6 @@ const deploymentSchema = new mongoose.Schema(
       enum: ["Pending", "Completed", "Failed"],
       default: "Pending",
     },
-    logs: {
-      type: String,
-      default: "",
-    },
   },
   {
     timestamps: true,
