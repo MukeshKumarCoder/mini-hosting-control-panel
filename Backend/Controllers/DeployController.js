@@ -26,7 +26,7 @@ exports.deploy = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Deployment Started",
-      deploymentId: deployment._id,
+      deploymentId: deployment._id.toString(),
     });
   } catch (error) {
     console.log(error);
@@ -39,7 +39,7 @@ exports.deploy = async (req, res) => {
 
 exports.getStatus = async (req, res) => {
   try {
-    const deployment = await Deployment.findById(req.params.id);
+    const deployment = await Deployment.findById(req.params.id).lean();
 
     if (!deployment) {
       return res.status(404).json({
@@ -51,7 +51,10 @@ exports.getStatus = async (req, res) => {
     return res.status(200).json({
       success: true,
       message: "Deployment found Successfully",
-      deployment,
+      deployment: {
+        ...deployment,
+        _id: deployment._id.toString(),
+      },
     });
   } catch (error) {
     console.log("error", error);
